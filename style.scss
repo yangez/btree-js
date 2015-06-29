@@ -1,0 +1,37 @@
+body, html {
+  font-size: 16px;
+  line-height: 1.5em;
+  width: 100%;
+}
+
+#main {
+  margin-top: 20px;
+
+  h1 { margin-bottom: 20px; }
+  #button {
+    display: inline-block;
+    float: right;
+    margin-top: 20px;
+  }
+  #insert-form
+  hr { margin-bottom: 15px;}
+  #btree-container {
+    text-align: center;
+    .level {
+
+      display: inline-block;
+      margin: 15px auto;
+
+      .btree {
+        float: left;
+        // display: inline-block;
+        margin-right: 10px;
+        text-align: center;
+        width: 80px;
+      }
+    }
+
+  }
+
+
+}

@@ -1,2 +1,2 @@
 # btree-js
-Allen Chang and Eric Yang's javascript b-tree implementation
+[Allen Chang](https://allendevelops.wordpress.com) and Eric Yang's javascript b-tree implementation
