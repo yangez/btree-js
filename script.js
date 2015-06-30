@@ -13,6 +13,7 @@ bTree.insert(50);
 bTree.insert(22);
 bTree.insert(78);
 bTree.insert(29);
+bTree.insert(9);
 
 printKeys();
 

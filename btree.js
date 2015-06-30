@@ -9,7 +9,11 @@ var BTree = function(order){
   return tree;
 }
 
-// Search helper function that returns the leaf node to insert into
+BTree.prototype.createNode = function(keys, children, parent) {
+  return BTreeNode(this, keys, children, parent);
+}
+
+// Search function that returns the leaf node to insert into
 BTree.prototype.search = function(value){
   if (!this.root) return false;
   else return this.root.traverse(value);
@@ -24,7 +28,7 @@ BTree.prototype.insert = function(value) {
   var target = this.search(value);
   if (!target) {
     // create new root node
-    this.root = BTreeNode(this);
+    this.root = this.createNode();
     target = this.root;
   }
 
@@ -32,5 +36,3 @@ BTree.prototype.insert = function(value) {
   target.insert(value);
 
 }
-
-// Main search function
