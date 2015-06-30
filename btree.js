@@ -1,16 +1,36 @@
-var order = 3;
 
 var BTree = function(order){
   var tree = Object.create(BTree.prototype);
   tree.root = null;
+  tree.order = order;
   tree.current_leaf_offset = 0;
+  tree.unattached_nodes = []; // array for unattached nodes based on leaf_offset
 
   return tree;
 }
 
+// Search helper function that returns the leaf node to insert into
+BTree.prototype.search = function(value){
+  if (!this.root) return false;
+  else return this.root.traverse(value);
+}
+
 // Main insertion function
 BTree.prototype.insert = function(value) {
-  console.log(value);
+
+  this.current_leaf_offset = 0;
+
+  // 1. Find which leaf the inserted value should go
+  var target = this.search(value);
+  if (!target) {
+    // create new root node
+    this.root = BTreeNode(this);
+    target = this.root;
+  }
+
+  // 2. Apply target.insert (recursive)
+  target.insert(value);
+
 }
 
 // Main search function

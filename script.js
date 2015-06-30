@@ -1,6 +1,25 @@
-printKeys = function() {
+//             [10      20]
+//      [5, 7]   [15, 18]   [25, 30]
+//     [] [] []  [] [] []   [] [] []
+
+var order = 3;
+
+bTree = BTree(order);
+
+bTree.insert(5);
+bTree.insert(30);
+bTree.insert(10);
+bTree.insert(50);
+bTree.insert(22);
+bTree.insert(78);
+bTree.insert(29);
+
+printKeys();
+
+function printKeys() {
   // debugger;
-  console.log(bTree.root.keys.toString());
+  root = bTree.root
+  console.log(root.keys.toString());
 
   var childString = "";
   var grandchildString = "";
@@ -19,23 +38,3 @@ printKeys = function() {
   console.log(childString);
   console.log(grandchildString);
 }
-
-bTree = BTree();
-
-bTree.insert(5);
-
-/*
-root = BTreeNode();
-root.insert(5);
-root.insert(30);
-root.insert(10);
-root.insert(50);
-root.insert(22);
-root.insert(78);
-root.insert(29);
-root.insert(7);
-// debugger;
-// root.insert(100);
-
-printKeys();
-*/
