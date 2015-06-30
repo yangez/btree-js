@@ -3,30 +3,13 @@
     //     [] [] []  [] [] []   [] [] []
 
 
-var order = 3;
-
-window.root = null;
-
-var BTreeNode = function(keys, children, parent){
+var BTreeNode = function(keys, children, parent, tree){
   var newNode = Object.create(BTreeNode.prototype);
   newNode.keys = keys || [];
   newNode.children = children || new Array(order);
   newNode.parent = parent || null;
+  newNode.tree = tree || null;
   newNode.id = null;
-
-  // if(newNode.parent)
-  //   newNode.parent.children.push(newNode);
-
-
-  /*
-  1. Find leaf where value should go
-  2. Insert the value into leaf, then sort
-  3. If overflow
-    * push value to parent
-    * split node into left and right
-
-  */
-
 
   return newNode;
 }
@@ -69,6 +52,7 @@ BTreeNode.prototype.insert = function(value, callerIndex){
 
 BTreeNode.prototype.handleOverflow = function() {
   var overflowNode = this;
+  var tree = this.tree;
 
   var median_index = 1;
   var median = overflowNode.keys[median_index];
@@ -81,9 +65,9 @@ BTreeNode.prototype.handleOverflow = function() {
   var right = BTreeNode(rightKeys, overflowNode.children, overflowNode.parent);
 
   if(overflowNode.parent === null){
-    window.root = BTreeNode([median], [left, right])
-    left.parent = window.root;
-    right.parent = window.root;
+    tree.root = BTreeNode([median], [left, right])
+    left.parent = tree.root;
+    right.parent = tree.root;
   } else {
     var overFlowIndex = overflowNode.parent.children.indexOf(overflowNode)
 
@@ -94,40 +78,3 @@ BTreeNode.prototype.handleOverflow = function() {
   }
 
 }
-
-
-printKeys = function() {
-  // debugger;
-  console.log(window.root.keys.toString());
-
-  var childString = "";
-  var grandchildString = "";
-  root.children.forEach(function(child, index){
-    if(child === undefined) return;
-    if (child.keys)
-      childString += child.keys.toString() + " ";
-
-    if(child.children)
-      child.children.forEach(function(child){
-        if(child === undefined) return;
-        if (child.keys)
-          grandchildString += child.keys.toString() + ' ';
-      })
-  });
-  console.log(childString);
-  console.log(grandchildString);
-}
-
-root = BTreeNode();
-root.insert(5);
-root.insert(30);
-root.insert(10);
-root.insert(50);
-root.insert(22);
-root.insert(78);
-root.insert(29);
-root.insert(7);
-// debugger;
-// root.insert(100);
-
-printKeys();
