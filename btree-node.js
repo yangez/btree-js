@@ -24,7 +24,7 @@ BTreeNode.prototype.traverse = function(value) {
 }
 
 BTreeNode.prototype.insert = function(value){
-  // a. if there's room, insert it and that's it
+  // insert element
   this.keys.push(value);
   this.keys.sort(function(a,b){ // sort numbers ascending
     if(a > b) return 1;
@@ -32,9 +32,11 @@ BTreeNode.prototype.insert = function(value){
     else return 0;
   })
 
-  // b. else handle overflow
+  // if overflow, handle overflow (go up)
   if(this.keys.length === this.tree.order) {
     this.handleOverflow();
+  } else { // if not filled, start attaching children
+    this.attachChildren();
   }
 }
 
@@ -45,58 +47,41 @@ BTreeNode.prototype.handleOverflow = function() {
   var median_index = 1;
   var median = overflowNode.keys[median_index];
 
-  tree.unattached_nodes[tree.current_leaf_offset] = tree.unattached_nodes[tree.current_leaf_offset] || [];
 
   var leftKeys = overflowNode.keys.slice(0,median_index);
   var leftNode = tree.createNode(leftKeys); // no children or parent
-  tree.unattached_nodes[tree.current_leaf_offset].push(leftNode);
+  tree.addUnattached(leftNode, tree.current_leaf_offset);
 
   var rightKeys = overflowNode.keys.slice(median_index+1, overflowNode.keys.length);
   var rightNode = tree.createNode(rightKeys);
-  tree.unattached_nodes[tree.current_leaf_offset].push(rightNode);
+  tree.addUnattached(rightNode, tree.current_leaf_offset);
 
-  // if internal node, unattach children and add to unattached_nodes
+  // if no parent, create an empty one (will be root)
+  if(overflowNode.isRoot()) {
+    tree.root = tree.createNode();
+    overflowNode.setParent(tree.root);
+  }
+
+  // if node is internal, unattach children and add to unattached_nodes
   if (overflowNode.isInternal()) {
-    overflowNode.children.forEach( function(child) {
-      child.parent = null;
-      tree.unattached_nodes[tree.current_leaf_offset-1].push(child);
-    });
+    var length = overflowNode.children.length;
+    for(var i=0; i<length; i++) {
+      child = overflowNode.children[0];
+      child.unsetParent();
+      tree.addUnattached(child, tree.current_leaf_offset-1);
+    }
+    // overflowNode.children.forEach( function(child) {
+      // child.unsetParent();
+    // });
   }
 
-  // Push median up, increment offset
-
-  tree.current_leaf_offset += 1;
-
-  if(!overflowNode.isRoot()){ // if not at the top yet
-
-    overflowNode.parent.insert(median);
-    var attachTarget = overflowNode.parent;
-
-    // following shit only works for order 3
-    /*
-    //var overFlowIndex = overflowNode.parent.children.indexOf(overflowNode)
-    //overflowNode.parent.children[overFlowIndex] = leftNode;
-    // overflowNode.parent.children[overFlowIndex+1] = rightNode;
-    */
-    /* in else:
-    // leftNode.parent = tree.root;
-    // rightNode.parent = tree.root;
-    */
-
-  } else { // if it's at the top, time to go back down
-
-    tree.root = tree.createNode([median]); // create new root node
-    var attachTarget = tree.root;
-
-    // This doesn't seem to cascade all the way down?
-
-  }
-
-  // apply function to attach unattached nodes
-  attachTarget.attachChildren();
-
-  // remove self
+  // set target, remove self from parent
+  target = overflowNode.parent;
   overflowNode.unsetParent();
+
+  // Push median up to target, increment offset
+  tree.current_leaf_offset += 1;
+  target.insert(median);
 
 
 }
@@ -105,23 +90,29 @@ BTreeNode.prototype.handleOverflow = function() {
 // function to go down and reattach nodes
 BTreeNode.prototype.attachChildren = function() {
   var target = this;
+  var offset = target.tree.current_leaf_offset-1;
 
   // get all nodes below the current node
-  var target_nodes = target.tree.unattached_nodes[target.tree.current_leaf_offset-1];
+  var target_nodes = target.tree.unattached_nodes[offset];
 
   if (target_nodes && target_nodes.length > 0) {
-    // for each of the keys in this node, attach a child to the left
+    // for each of the keys in this node, attach two children(left and right)
+    // afterwards, remove them from unattached_nodes
     target.keys.forEach(function(key, index) {
-      target.setChild(target_nodes[index]);
+      for(var i=0; i<2; i++) {
+        target.setChild(target_nodes[0]);
+        target.tree.removeUnattached(target_nodes[0], offset);
+      }
     });
-    target.setChild(target_nodes[target.keys.length]);
 
-    // do this again for each one of the children
+    // lower offset, and repeat for each one of the children
+    tree.current_leaf_offset -= 1;
     target.children.forEach(function(child) {
-
-      tree.current_leaf_offset -= 1;
       child.attachChildren();
     });
+
+    // come back up so upper levels can process appropriately
+    tree.current_leaf_offset +=1;
   }
 }
 
