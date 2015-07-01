@@ -11,6 +11,7 @@ var BTreeNode = function(tree, keys, children, parent){
 }
 
 // Traverse tree until we find correct leaf for this value
+// strict = must search for exact value
 BTreeNode.prototype.traverse = function(value, strict) {
   if (this.keys.indexOf(value) > -1) return this;
   else if (this.isLeaf()) {
@@ -23,7 +24,7 @@ BTreeNode.prototype.traverse = function(value, strict) {
         return this.children[i].traverse(value, strict);
       }
     }
-    if (!strict) return this.children[this.keys.length];
+    return this.children[this.keys.length].traverse(value, strict);
   }
 }
 
