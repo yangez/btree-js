@@ -11,14 +11,10 @@ bTree.insert(40);
 bTree.insert(7);
 bTree.insert(9);
 bTree.insert(30);
-bTree.insert(32); // doesn't work
-/*
+bTree.insert(32);
 bTree.insert(50);
-*/
 //
-/*
-bTree.insert(35);
-*/
+// bTree.insert(35); // doesn't work
 // bTree.insert(38);
 // bTree.insert(55);
 // bTree.insert(95);

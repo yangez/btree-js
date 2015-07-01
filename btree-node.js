@@ -66,12 +66,11 @@ BTreeNode.prototype.handleOverflow = function() {
   // Push median up, increment offset
 
   tree.current_leaf_offset += 1;
+
   if(!overflowNode.isRoot()){ // if not at the top yet
 
     overflowNode.parent.insert(median);
-
-// This doesn't seem to fire
-
+    var attachTarget = overflowNode.parent;
 
     // following shit only works for order 3
     /*
@@ -87,11 +86,14 @@ BTreeNode.prototype.handleOverflow = function() {
   } else { // if it's at the top, time to go back down
 
     tree.root = tree.createNode([median]); // create new root node
-    tree.root.attachChildren();
+    var attachTarget = tree.root;
 
     // This doesn't seem to cascade all the way down?
 
   }
+
+  // apply function to attach unattached nodes
+  attachTarget.attachChildren();
 
   // remove self
   overflowNode.unsetParent();
