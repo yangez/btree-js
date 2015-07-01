@@ -6,14 +6,22 @@ var order = 3;
 
 bTree = BTree(order);
 
-bTree.insert(5);
-bTree.insert(30);
-bTree.insert(10);
-bTree.insert(50);
-bTree.insert(22);
-bTree.insert(78);
-bTree.insert(29);
+bTree.insert(11);
+bTree.insert(40);
+bTree.insert(7);
 bTree.insert(9);
+bTree.insert(30);
+bTree.insert(32); // doesn't work
+/*
+bTree.insert(50);
+*/
+//
+/*
+bTree.insert(35);
+*/
+// bTree.insert(38);
+// bTree.insert(55);
+// bTree.insert(95);
 
 printKeys();
 
