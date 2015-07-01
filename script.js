@@ -2,17 +2,19 @@ var order = 3; // doesn't work with anything besides 3
 
 bTree = BTree(order);
 
-// insert 30 items
+var count = 35;
+
+// numbers from 1-99
 var list = [];
-for(var i=0; i<100; i++) list.push(i);
-
-var count = 20;
-
+for(var i=1; i<100; i++)  {
+  list.push(i);
+}
 // add random unique number
 for(var i=0; i<count; i++) {
   list.sort(function(a,b){ return Math.floor(Math.random() * 3) - 1; })
 
   current = list.shift();
+  // console.log("bTree.insert("+current+");")
 
   bTree.insert(current, true);
 }

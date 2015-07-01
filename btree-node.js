@@ -24,9 +24,8 @@ BTreeNode.prototype.traverse = function(value, strict) {
         return this.children[i].traverse(value, strict);
       }
     }
-    if (!this.children[this.keys.length]) {
-      debugger;
-    }
+    if (!this.children[this.keys.length]) debugger; // should never happen
+
     return this.children[this.keys.length].traverse(value, strict);
   }
 }
@@ -85,14 +84,11 @@ BTreeNode.prototype.attachChildren = function() {
     // first, put all existing nodes into target_nodes so they're ordered correctly
     target.unattachAllChildren();
 
-    // then, attach based on keys
-    target.keys.forEach(function(key, index) {
-      for(var i=0; i<2; i++) {
-        // does this actually work?
-        target.setChild(target_nodes[0]);
-        target.tree.removeUnattached(target_nodes[0], offset);
-      }
-    });
+    // then, attach based on keys + 1
+    for(var i=0; i<=target.keys.length; i++) {
+      target.setChild(target_nodes[0]);
+      target.tree.removeUnattached(target_nodes[0], offset);
+    }
 
     // lower offset, and repeat for each one of the children
     tree.current_leaf_offset -= 1;
