@@ -10,16 +10,20 @@ var BTreeNode = function(tree, keys, children, parent){
   return newNode;
 }
 
-// Traverse tree until we find correct leaf
-BTreeNode.prototype.traverse = function(value) {
-  if (this.isLeaf()) return this;
+// Traverse tree until we find correct leaf for this value
+BTreeNode.prototype.traverse = function(value, strict) {
+  if (this.keys.indexOf(value) > -1) return this;
+  else if (this.isLeaf()) {
+    if (strict) return false;
+    else return this;
+  }
   else { // find the correct downward path for this value
     for(var i = 0; i < this.keys.length; i++){
       if(value < this.keys[i]){
-        return this.children[i].traverse(value);
+        return this.children[i].traverse(value, strict);
       }
     }
-    return this.children[this.keys.length];
+    if (!strict) return this.children[this.keys.length];
   }
 }
 

@@ -15,13 +15,18 @@ BTree.prototype.createNode = function(keys, children, parent) {
 }
 
 // Search function that returns the leaf node to insert into
-BTree.prototype.search = function(value){
+BTree.prototype.search = function(value, strict){
   if (!this.root) return false;
-  else return this.root.traverse(value);
+  else return this.root.traverse(value, strict);
 }
 
 // Main insertion function
 BTree.prototype.insert = function(value) {
+
+  if (this.search(value, true)) {
+    console.log("The value "+value+" already exists!")
+    return false;
+  }
 
   this.current_leaf_offset = 0;
   this.unattached_nodes = [[]];

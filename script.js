@@ -11,7 +11,6 @@ bTree.insert(40);
 bTree.insert(7);
 bTree.insert(9);
 bTree.insert(30);
-bTree.insert(32);
 bTree.insert(50);
 //
 bTree.insert(35);
