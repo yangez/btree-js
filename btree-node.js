@@ -69,15 +69,7 @@ BTreeNode.prototype.handleOverflow = function() {
 
   // if node is internal, unattach children and add to unattached_nodes
   if (overflowNode.isInternal()) {
-    var length = overflowNode.children.length;
-    for(var i=0; i<length; i++) {
-      child = overflowNode.children[0];
-      child.unsetParent();
-      tree.addUnattached(child, tree.current_leaf_offset-1);
-    }
-    // overflowNode.children.forEach( function(child) {
-      // child.unsetParent();
-    // });
+    overflowNode.unattachAllChildren();
   }
 
   // set target, remove self from parent
@@ -103,6 +95,11 @@ BTreeNode.prototype.attachChildren = function() {
   if (target_nodes && target_nodes.length > 0) {
     // for each of the keys in this node, attach two children(left and right)
     // afterwards, remove them from unattached_nodes
+
+    // first, put all existing nodes into target_nodes so they're ordered correctly
+    target.unattachAllChildren();
+
+    // then, attach based on keys
     target.keys.forEach(function(key, index) {
       for(var i=0; i<2; i++) {
         target.setChild(target_nodes[0]);
@@ -125,6 +122,14 @@ BTreeNode.prototype.setChild = function(node) {
   if (node) {
     this.children.push(node) ;
     node.parent = this;
+  }
+}
+BTreeNode.prototype.unattachAllChildren = function() {
+  var length = this.children.length;
+  for(var i=0; i<length; i++) {
+    child = this.children[0];
+    child.unsetParent();
+    tree.addUnattached(child, tree.current_leaf_offset-1);
   }
 }
 

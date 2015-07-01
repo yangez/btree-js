@@ -12,14 +12,16 @@ bTree.insert(7);
 bTree.insert(9);
 bTree.insert(30);
 bTree.insert(50);
-//
 bTree.insert(35);
 bTree.insert(38);
 bTree.insert(32);
 bTree.insert(13);
-// bTree.insert(95);
-// bTree.insert(105);
-// bTree.insert(83);
+bTree.insert(95);
+
+bTree.insert(10);
+bTree.insert(12);
+bTree.insert(105);
+bTree.insert(83);
 
 printKeys();
 
