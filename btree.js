@@ -21,10 +21,10 @@ BTree.prototype.search = function(value, strict){
 }
 
 // Main insertion function
-BTree.prototype.insert = function(value) {
+BTree.prototype.insert = function(value, silent) {
 
   if (this.search(value, true)) {
-    console.log("The value "+value+" already exists!")
+    if (!silent) console.log("The value "+value+" already exists!");
     return false;
   }
 

@@ -24,6 +24,9 @@ BTreeNode.prototype.traverse = function(value, strict) {
         return this.children[i].traverse(value, strict);
       }
     }
+    if (!this.children[this.keys.length]) {
+      debugger;
+    }
     return this.children[this.keys.length].traverse(value, strict);
   }
 }
@@ -46,43 +49,29 @@ BTreeNode.prototype.insert = function(value){
 }
 
 BTreeNode.prototype.handleOverflow = function() {
-  var overflowNode = this; tree = this.tree
+  tree = this.tree;
 
   // find this node's median and split into 2 new nodes
-  var median_index = 1;
-  var median = overflowNode.keys[median_index];
+  median = this.splitMedian();
 
-
-  var leftKeys = overflowNode.keys.slice(0,median_index);
-  var leftNode = tree.createNode(leftKeys); // no children or parent
-  tree.addUnattached(leftNode, tree.current_leaf_offset);
-
-  var rightKeys = overflowNode.keys.slice(median_index+1, overflowNode.keys.length);
-  var rightNode = tree.createNode(rightKeys);
-  tree.addUnattached(rightNode, tree.current_leaf_offset);
-
-  // if no parent, create an empty one (will be root)
-  if(overflowNode.isRoot()) {
+  // if no parent, create an empty one and set to root
+  if(this.isRoot()) {
     tree.root = tree.createNode();
-    overflowNode.setParent(tree.root);
+    this.setParent(tree.root);
   }
 
   // if node is internal, unattach children and add to unattached_nodes
-  if (overflowNode.isInternal()) {
-    overflowNode.unattachAllChildren();
-  }
+  if (this.isInternal()) this.unattachAllChildren();
 
-  // set target, remove self from parent
-  target = overflowNode.parent;
-  overflowNode.unsetParent();
+  // remove self from parent
+  target = this.parent;
+  this.unsetParent();
 
   // Push median up to target, increment offset
   tree.current_leaf_offset += 1;
   target.insert(median);
 
-
 }
-
 
 // function to go down and reattach nodes
 BTreeNode.prototype.attachChildren = function() {
@@ -93,15 +82,13 @@ BTreeNode.prototype.attachChildren = function() {
   var target_nodes = target.tree.unattached_nodes[offset];
 
   if (target_nodes && target_nodes.length > 0) {
-    // for each of the keys in this node, attach two children(left and right)
-    // afterwards, remove them from unattached_nodes
-
     // first, put all existing nodes into target_nodes so they're ordered correctly
     target.unattachAllChildren();
 
     // then, attach based on keys
     target.keys.forEach(function(key, index) {
       for(var i=0; i<2; i++) {
+        // does this actually work?
         target.setChild(target_nodes[0]);
         target.tree.removeUnattached(target_nodes[0], offset);
       }
@@ -117,6 +104,23 @@ BTreeNode.prototype.attachChildren = function() {
     tree.current_leaf_offset +=1;
   }
 }
+
+// helper function to split node into 2 and return the median
+BTreeNode.prototype.splitMedian = function() {
+  var median_index = parseInt(tree.order/2); // 1
+  var median = this.keys[median_index];
+
+  var leftKeys = this.keys.slice(0,median_index);
+  var leftNode = tree.createNode(leftKeys); // no children or parent
+  tree.addUnattached(leftNode, tree.current_leaf_offset);
+
+  var rightKeys = this.keys.slice(median_index+1, this.keys.length);
+  var rightNode = tree.createNode(rightKeys);
+  tree.addUnattached(rightNode, tree.current_leaf_offset);
+
+  return median;
+}
+
 
 BTreeNode.prototype.setChild = function(node) {
   if (node) {

@@ -1,27 +1,21 @@
-//             [10      20]
-//      [5, 7]   [15, 18]   [25, 30]
-//     [] [] []  [] [] []   [] [] []
-
-var order = 3;
+var order = 3; // doesn't work with anything besides 3
 
 bTree = BTree(order);
 
-bTree.insert(11);
-bTree.insert(40);
-bTree.insert(7);
-bTree.insert(9);
-bTree.insert(30);
-bTree.insert(50);
-bTree.insert(35);
-bTree.insert(38);
-bTree.insert(32);
-bTree.insert(13);
-bTree.insert(95);
+// insert 30 items
+var list = [];
+for(var i=0; i<100; i++) list.push(i);
 
-bTree.insert(10);
-bTree.insert(12);
-bTree.insert(105);
-bTree.insert(83);
+var count = 20;
+
+// add random unique number
+for(var i=0; i<count; i++) {
+  list.sort(function(a,b){ return Math.floor(Math.random() * 3) - 1; })
+
+  current = list.shift();
+
+  bTree.insert(current, true);
+}
 
 printKeys();
 
@@ -33,6 +27,7 @@ function printKeys() {
 
   var childString = "";
   var grandchildString = "";
+  var greatGrandchildString = "";
   root.children.forEach(function(child, index){
     if(child === undefined) return;
     if (child.keys)
@@ -43,10 +38,18 @@ function printKeys() {
         if(child === undefined) return;
         if (child.keys)
           grandchildString += child.keys.toString() + ' ';
-      })
+
+        if (child.children)
+          child.children.forEach(function(child){
+            if(child === undefined) return;
+            if (child.keys)
+              greatGrandchildString += child.keys.toString() + ' ';
+          });
+      });
   });
   console.log(childString);
   console.log(grandchildString);
+  console.log(greatGrandchildString);
 }
 
 // display unattached nodes for debugging purposes
