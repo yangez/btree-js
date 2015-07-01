@@ -10,8 +10,8 @@ var BTreeNode = function(tree, keys, children, parent){
   return newNode;
 }
 
-// Traverse tree until we find correct leaf for this value
-// strict = must search for exact value
+// Traverse tree until we find correct node to insert this value
+// strict=true searches for node containing exact value
 BTreeNode.prototype.traverse = function(value, strict) {
   if (this.keys.indexOf(value) > -1) return this;
   else if (this.isLeaf()) {
@@ -24,8 +24,6 @@ BTreeNode.prototype.traverse = function(value, strict) {
         return this.children[i].traverse(value, strict);
       }
     }
-    if (!this.children[this.keys.length]) debugger; // should never happen
-
     return this.children[this.keys.length].traverse(value, strict);
   }
 }
@@ -69,7 +67,6 @@ BTreeNode.prototype.handleOverflow = function() {
   // Push median up to target, increment offset
   tree.current_leaf_offset += 1;
   target.insert(median);
-
 }
 
 // function to go down and reattach nodes
@@ -84,7 +81,7 @@ BTreeNode.prototype.attachChildren = function() {
     // first, put all existing nodes into target_nodes so they're ordered correctly
     target.unattachAllChildren();
 
-    // then, attach based on keys + 1
+    // then, attach keys.length+1 children to this node
     for(var i=0; i<=target.keys.length; i++) {
       target.setChild(target_nodes[0]);
       target.tree.removeUnattached(target_nodes[0], offset);
