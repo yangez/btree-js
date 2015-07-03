@@ -29,6 +29,12 @@ BTreeNode.prototype.traverse = function(value, strict) {
 }
 
 BTreeNode.prototype.insert = function(value){
+  var int = parseInt(value) || 0;
+  if (int <= 0) {
+    alert('Please enter a valid integer.');
+    return false;
+  }
+
   // insert element
   this.keys.push(value);
   this.keys.sort(function(a,b){ // sort numbers ascending
