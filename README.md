@@ -1,6 +1,8 @@
 # btree-js
 Here is [Allen Chang](https://allendevelops.wordpress.com) and Eric Yang's javascript implementation for [B-tree](https://en.wikipedia.org/wiki/B-tree) of order 3.
 
+Demo here: [JS BTree](http://yangez.github.io/btree-js/)
+
 Currently we can `search` and `insert`. We're planning on adding `delete` soon. We derived our own insert algorithm as follows:
 
 1. Traverse the b-tree for the correct leaf to insert the value.
@@ -10,4 +12,4 @@ Currently we can `search` and `insert`. We're planning on adding `delete` soon. 
   * If node overflows and has a parent, split the node and insert the median into the parent. Go up to parent and repeat step 2 until it doesn't overflow.
 3. Go back all the way down and connect all the split nodes to the appropriate parents.
 
-It turns out that there's a more efficient algorithm where you don't have to go up and back down, but ours still works fine. Demo here: [JS BTree](http://yangez.github.io/btree-js/)
+It turns out that there's a more efficient algorithm where you don't have to go up and back down, but ours still works fine.
