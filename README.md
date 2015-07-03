@@ -1,5 +1,5 @@
 # btree-js
-Here is [Allen Chang](https://allendevelops.wordpress.com) and Eric Yang's javascript [b-tree](https://en.wikipedia.org/wiki/B-tree) implementation.
+Here is [Allen Chang](https://allendevelops.wordpress.com) and Eric Yang's javascript implementation for [B-tree](https://en.wikipedia.org/wiki/B-tree) of order 3.
 
 Currently we can `search` and `insert`. We're planning on adding `delete` soon. We derived our own insert algorithm as follows:
 
