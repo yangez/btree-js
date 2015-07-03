@@ -66,7 +66,6 @@ BTree.prototype.removeUnattached = function(node, level) {
   }
 }
 
-
 // Generate tree json for d3.js to consume
 BTree.prototype.toJSON = function() {
   root = this.root;

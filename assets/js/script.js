@@ -4,7 +4,7 @@ $(function() {
   var order = 3;
   bTree = BTree(order);
 
-  bTree.seed(8);
+  bTree.seed(3);
 
   $("#add-form").submit(function(event) {
     event.preventDefault();
@@ -13,10 +13,23 @@ $(function() {
     $("#input-add").val("");
 
     $('svg').remove();
-    debugger;
 
     var treeData = bTree.toJSON();
     update(treeData);
+
+    $("g text").each(function(index) {
+      keys = $(this).text();
+      keys_array = keys.split(',').map(function(element) {
+        return parseInt(element);
+      });
+
+      debugger;
+      if ( keys_array.indexOf(value) != -1 ) {
+        $(this).css({ fill: "#ff0000", "font-weight": "bold"} );
+      }
+
+    });
+
   });
 
 
