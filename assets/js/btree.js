@@ -72,3 +72,20 @@ BTree.prototype.toJSON = function() {
   root = this.root;
   return root.toJSON();
 }
+
+// seed bTree with "count" unique numbers
+BTree.prototype.seed = function(count) {
+  var list = [];
+
+  upper = 100;
+  if (count > 50) upper = count*2;
+
+  for(var i=1; i<upper; i++) list.push(i);
+
+  for(var i=0; i<count; i++) {
+    list.sort(function(a,b){ return Math.floor(Math.random() * 3) - 1; })
+    current = list.shift();
+    this.insert(current, true);
+  }
+
+}

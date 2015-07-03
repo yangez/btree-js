@@ -1,0 +1,23 @@
+body, html {
+  font-size: 16px;
+  line-height: 1.5em;
+  width: 100%; }
+
+#main {
+  margin-top: 20px; }
+  #main #inputs {
+    width: 500px;
+    margin: auto;
+    text-align: center; }
+  #main .node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 3px; }
+  #main .node text {
+    font: 15px sans-serif; }
+  #main .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px; }
+
+/*# sourceMappingURL=style.css.map */

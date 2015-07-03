@@ -148,7 +148,7 @@ BTreeNode.prototype.isRoot = function() {
   return this.parent === null;
 }
 BTreeNode.prototype.isLeaf = function() {
-  return this.children.length === 0;
+  return (!this.children) || this.children.length === 0;
 }
 BTreeNode.prototype.isInternal = function() {
   return !this.isLeaf() && !this.isRoot();

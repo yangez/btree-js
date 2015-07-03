@@ -4,34 +4,30 @@ body, html {
   width: 100%;
 }
 
+
 #main {
   margin-top: 20px;
 
-  h1 { margin-bottom: 20px; }
-  #button {
-    display: inline-block;
-    float: right;
-    margin-top: 20px;
-  }
-  #insert-form
-  hr { margin-bottom: 15px;}
-  #btree-container {
+
+  #inputs {
+    width: 500px;
+    margin: auto;
     text-align: center;
-    .level {
+  }
 
-      display: inline-block;
-      margin: 15px auto;
-
-      .btree {
-        float: left;
-        // display: inline-block;
-        margin-right: 10px;
-        text-align: center;
-        width: 80px;
-      }
+  .node {
+    circle {
+      fill: #fff;
+      stroke: steelblue;
+      stroke-width: 3px;
     }
-
+    text { font: 15px sans-serif; }
   }
 
 
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px;
+  }
 }
