@@ -60,7 +60,7 @@ function generateData() {
 }
 
 function dataTraverse(node) {
-  
+
 }
 
 // displays keys in console

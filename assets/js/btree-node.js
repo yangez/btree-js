@@ -153,3 +153,17 @@ BTreeNode.prototype.isLeaf = function() {
 BTreeNode.prototype.isInternal = function() {
   return !this.isLeaf() && !this.isRoot();
 }
+
+// generate node json, used in BTree::toJSON
+BTreeNode.prototype.toJSON = function() {
+    var json = {};
+    json.name = this.keys.toString();
+    if (!this.isRoot()) json.parent = this.parent.keys.toString();
+    if (!this.isLeaf()) {
+      json.children = [];
+      this.children.forEach(function(child, index){
+        json.children.push(child.toJSON());
+      });
+    }
+    return json;
+}

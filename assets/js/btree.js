@@ -65,3 +65,41 @@ BTree.prototype.removeUnattached = function(node, level) {
     this.unattached_nodes[level].splice(index, 1);
   }
 }
+
+
+// Generate tree json for d3.js to consume
+BTree.prototype.toJSON = function() {
+  root = this.root;
+
+  json = root
+
+
+  /*
+  var treeData = [
+  {
+    "name": "Top Level",
+    "parent": "null",
+    "children": [
+      {
+        "name": "Level 2: A",
+        "parent": "Top Level",
+        "children": [
+          {
+            "name": "Son of A",
+            "parent": "Level 2: A"
+          },
+          {
+            "name": "Daughter of A",
+            "parent": "Level 2: A"
+          }
+        ]
+      },
+      {
+        "name": "Level 2: B",
+        "parent": "Top Level"
+      }
+    ]
+  }
+];
+*/
+}
