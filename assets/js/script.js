@@ -1,4 +1,22 @@
 $(function() {
+
+  // get tree size
+  var bodyRect = d3.select("body").node().getBoundingClientRect();
+  var margin = {top: 40, right: 120, bottom: 20, left: 120},
+  width = bodyRect.width - margin.right - margin.left,
+  height = bodyRect.height - margin.top - margin.bottom;
+
+  // create the tree
+  var tree = d3.layout.tree().size([width, height]);
+
+  var svg = d3.select("#canvas").append("svg")
+    .attr({
+      width: width + margin.right + margin.left,
+      height: height + margin.top + margin.bottom })
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
   var bTree, treeData;
 
   // automatically create btree with default settings
@@ -49,11 +67,12 @@ $(function() {
     bTree.insert(value);
 
     $("#input-add").val("");
-    $('svg').remove();
+    // $('svg').remove();
 
     treeData = bTree.toJSON();
     update(treeData);
 
+    // Make the current add node highlighted in red
     $("g text").each(function(index) {
       keys = $(this).text();
       keys_array = keys.split(',').map(function(element) {
@@ -68,46 +87,41 @@ $(function() {
 
   });
 
+
   function update(source) {
-
-    var bodyRect = d3.select("body").node().getBoundingClientRect();
-
-    var margin = {top: 40, right: 120, bottom: 20, left: 120},
-    width = bodyRect.width - margin.right - margin.left,
-    height = bodyRect.height - margin.top - margin.bottom;
-
-    var diagonal = d3.svg.diagonal()
-      .projection(function(d) { return [d.x, d.y]; });
-
-    var tree = d3.layout.tree()
-      .size([width, height]);
-    var svg = d3.select("#canvas").append("svg")
-      .attr("width", width + margin.right + margin.left)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    // Compute the new tree layout.
-    var nodes = tree.nodes(source).reverse();
+    // Make source data into d3-usable format
+    var nodes = tree.nodes(source);
     var links = tree.links(nodes);
+
+    debugger;
 
     // Normalize for fixed-depth.
     nodes.forEach(function(d) { d.y = d.depth * 100; });
 
-    // Declare the nodes…
+    // NODE SELECTION
     var i = 0;
     var node = svg.selectAll("g.node")
       .data(nodes, function(d) { return d.id || (d.id = ++i); });
 
-    // Enter the nodes.
+    // UPDATE NODE DATA + POSITION
+    node.each(function(d,i){
+      var thisNode = d3.select('#'+this.id+' text');
+      thisNode.text(d.name);
+      d3.select('#'+this.id).transition().attr('transform', 'translate(' + d.x + ',' + d.y + ')');
+    });
+
+    // NODE D3 APPENDING
     var nodeEnter = node.enter().append("g")
-    .attr("class", "node")
+    .attr({
+      "class": "node",
+      "id" : function(d) { return 'i'+d.id }
+    })
     .attr("transform", function(d) {
       return "translate(" + d.x + "," + d.y + ")"; });
 
     nodeEnter.append("circle")
       .attr("r", 10)
-      .style("fill", "#fff");
+      .style("fill", "#fff").style('opacity',0).transition().style('opacity',1).duration(250);
 
     nodeEnter.append("text")
       .attr("y", function(d) {
@@ -115,16 +129,25 @@ $(function() {
       .attr("dy", ".35em")
       .attr("text-anchor", "middle")
       .text(function(d) { return d.name; })
-      .style("fill-opacity", 1);
+      .style('opacity',0).transition().style('opacity',1).duration(250);
 
-        // Declare the links…
+
+    // D3 LINKS
     var link = svg.selectAll("path.link")
       .data(links, function(d) { return d.target.id; });
 
-        // Enter the links.
+    var diagonal = d3.svg.diagonal()
+      .projection(function(d) { return [d.x, d.y]; });
+
+    link.each(function(d,i) {
+      var thisLink = d3.select('#')
+    });
+
     link.enter().insert("path", "g")
       .attr("class", "link")
+      .attr("id", function(d) { return 'l'+d.id })
       .attr("d", diagonal);
+
 
   }
 
