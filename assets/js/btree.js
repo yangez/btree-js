@@ -29,7 +29,7 @@ BTree.prototype.search = function(value, strict){
 BTree.prototype.insert = function(value, silent) {
 
   if (this.search(value, true)) {
-    if (!silent) console.log("The value "+value+" already exists!");
+    if (!silent) alert("The value "+value+" already exists!");
     return false;
   }
 
