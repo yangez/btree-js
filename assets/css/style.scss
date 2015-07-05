@@ -16,6 +16,17 @@ body, html {
     text-align: center;
     h1 {
       margin-bottom: 30px;
+      .label {
+        font-size: 12px;
+        position: relative;
+        bottom: 16px;
+        font-weight:400;
+        display: none;
+        
+        #order-display {
+          font-weight: 600;
+        }
+      }
     }
 
     #create-form  {

@@ -11,7 +11,10 @@ $(function() {
     bTree.seed(seed);
 
     $("#create-form").fadeOut(200, function() {
+      $("#order-display").html(order);
+      $("h1 .label").fadeIn(200);
       $("#add-form").fadeIn(200, function() {
+
         if (!bTree.isEmpty()) {
           var treeData = bTree.toJSON();
           update(treeData);
@@ -19,10 +22,11 @@ $(function() {
       });
     });
 
-    $("#clear-button").click(function(e) {
+    $(".reset-btree").click(function(e) {
       e.preventDefault();
       $("#input-add").val("");
       $('svg').remove();
+      $("h1 .label").fadeOut(200);
       $("#add-form").fadeOut(200, function(){
         $("#create-form").fadeIn(200);
       });
