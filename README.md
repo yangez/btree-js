@@ -1,5 +1,5 @@
 # btree-js
-Here is [Allen Chang](https://allendevelops.wordpress.com) and Eric Yang's javascript implementation for [B-tree](https://en.wikipedia.org/wiki/B-tree) of order 3.
+Here is [Allen Chang](https://allendevelops.wordpress.com) and Eric Yang's javascript implementation for [B-tree](https://en.wikipedia.org/wiki/B-tree) of order 3 and above.
 
 Demo here: [JS BTree](http://yangez.github.io/btree-js/)
 
