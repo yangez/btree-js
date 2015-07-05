@@ -12,7 +12,23 @@ body, html {
   #inputs {
     width: 500px;
     margin: auto;
+    margin-bottom: 30px;
     text-align: center;
+    h1 {
+      margin-bottom: 30px;
+    }
+
+    #create-form  {
+      input[type=text] {
+        width: 30px;
+        padding: 3px 7px;
+        text-align: right;
+        height: 30px;
+      }
+    }
+
+    #add-form { display: none; }
+
   }
 
   .node {

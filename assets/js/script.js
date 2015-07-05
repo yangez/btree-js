@@ -1,26 +1,44 @@
 $(function() {
+  var bTree, treeData;
 
-  // set up BTree
-  var order = 3;
-  bTree = BTree(order);
+  $("#create-form").submit(function(event) {
+    event.preventDefault();
+    var order = parseInt( $("#new-order").val() );
+    var seed = parseInt( $("#new-seed").val() );
 
-  bTree.seed(1);
+    // set up btree
+    bTree = BTree(order);
+    bTree.seed(seed);
 
+    $("#create-form").fadeOut(200, function() {
+      $("#add-form").fadeIn(200, function() {
+        if (!bTree.isEmpty()) {
+          var treeData = bTree.toJSON();
+          update(treeData);
+        }
+      });
+    });
 
-  if (!bTree.isEmpty()) {
-    var treeData = bTree.toJSON();
-    update(treeData);
-  }
+    $("#clear-button").click(function(e) {
+      e.preventDefault();
+      $("#input-add").val("");
+      $('svg').remove();
+      $("#add-form").fadeOut(200, function(){
+        $("#create-form").fadeIn(200);
+      });
+    });
+
+  });
 
   $("#add-form").submit(function(event) {
     event.preventDefault();
     value = parseInt( $("#input-add").val() );
     bTree.insert(value);
-    $("#input-add").val("");
 
+    $("#input-add").val("");
     $('svg').remove();
 
-    var treeData = bTree.toJSON();
+    treeData = bTree.toJSON();
     update(treeData);
 
     $("g text").each(function(index) {
@@ -36,7 +54,6 @@ $(function() {
     });
 
   });
-
 
   function update(source) {
 
@@ -75,27 +92,27 @@ $(function() {
     .attr("transform", function(d) {
       return "translate(" + d.x + "," + d.y + ")"; });
 
-      nodeEnter.append("circle")
+    nodeEnter.append("circle")
       .attr("r", 10)
       .style("fill", "#fff");
 
-      nodeEnter.append("text")
+    nodeEnter.append("text")
       .attr("y", function(d) {
         return d.children || d._children ? -18 : 18; })
-        .attr("dy", ".35em")
-        .attr("text-anchor", "middle")
-        .text(function(d) { return d.name; })
-        .style("fill-opacity", 1);
+      .attr("dy", ".35em")
+      .attr("text-anchor", "middle")
+      .text(function(d) { return d.name; })
+      .style("fill-opacity", 1);
 
         // Declare the links…
-        var link = svg.selectAll("path.link")
-        .data(links, function(d) { return d.target.id; });
+    var link = svg.selectAll("path.link")
+      .data(links, function(d) { return d.target.id; });
 
         // Enter the links.
-        link.enter().insert("path", "g")
-        .attr("class", "link")
-        .attr("d", diagonal);
+    link.enter().insert("path", "g")
+      .attr("class", "link")
+      .attr("d", diagonal);
 
-      }
+  }
 
 });

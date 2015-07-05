@@ -31,6 +31,7 @@ BTreeNode.prototype.traverse = function(value, strict) {
 BTreeNode.prototype.insert = function(value){
   var int = parseInt(value) || 0;
   if (int <= 0) {
+    debugger;
     alert('Please enter a valid integer.');
     return false;
   }
@@ -106,7 +107,7 @@ BTreeNode.prototype.attachChildren = function() {
 
 // helper function to split node into 2 and return the median
 BTreeNode.prototype.splitMedian = function() {
-  var median_index = parseInt(tree.order/2); // 1
+  var median_index = parseInt(tree.order/2);
   var median = this.keys[median_index];
 
   var leftKeys = this.keys.slice(0,median_index);
@@ -116,7 +117,6 @@ BTreeNode.prototype.splitMedian = function() {
   var rightKeys = this.keys.slice(median_index+1, this.keys.length);
   var rightNode = tree.createNode(rightKeys);
   tree.addUnattached(rightNode, tree.current_leaf_offset);
-
   return median;
 }
 

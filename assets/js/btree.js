@@ -7,7 +7,7 @@ var BTree = function(order){
   tree.unattached_nodes = [[]]; // array for unattached nodes based on leaf_offset
 
   if (tree.order < 3) {
-    alert("Order must 3 or above.");
+    alert("Order must be 3 or above.");
     return false;
   }
 

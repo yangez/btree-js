@@ -18,12 +18,24 @@
   <div id="inputs">
     <h1>B-Tree</h1>
 
+    <form action="#" id="create-form" class="form-inline">
+      <p>
+        Create B-tree of order
+        <input type="text" class="form-control" value="3" id="new-order"/><br/>
+        and seed it with
+        <input type="text" class="form-control" value="5" id="new-seed"/>
+        random numbers.
+      </p>
+      <button type="submit" class="btn btn-primary">Continue &rarr;</button>
+    </form>
+
     <form action="#" id="add-form" class="form-inline">
       <div class="form-group">
         <label for="add"></label>
         <input type="text" class="form-control" placeholder="Enter an integer..." id="input-add"/>
       </div>
-      <button type="submit" class="btn btn-default">Add</button>
+      <button type="submit" class="btn btn-primary">Add</button>
+      <a href="#" id="clear-button" class="btn btn-default">Reset</a>
     </form>
 
   </div>

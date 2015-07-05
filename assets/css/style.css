@@ -8,7 +8,17 @@ body, html {
   #main #inputs {
     width: 500px;
     margin: auto;
+    margin-bottom: 30px;
     text-align: center; }
+    #main #inputs h1 {
+      margin-bottom: 30px; }
+    #main #inputs #create-form input[type=text] {
+      width: 30px;
+      padding: 3px 7px;
+      text-align: right;
+      height: 30px; }
+    #main #inputs #add-form {
+      display: none; }
   #main .node circle {
     fill: #fff;
     stroke: steelblue;
