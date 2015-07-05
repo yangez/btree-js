@@ -1,6 +1,13 @@
 $(function() {
   var bTree, treeData;
 
+  // automatically create btree with default settings
+  bTree = BTree(3);
+  $("#order-display").html(3);
+  bTree.seed(5);
+  var treeData = bTree.toJSON();
+  update(treeData);
+
   $("#create-form").submit(function(event) {
     event.preventDefault();
     var order = parseInt( $("#new-order").val() );
@@ -22,17 +29,19 @@ $(function() {
       });
     });
 
-    $(".reset-btree").click(function(e) {
-      e.preventDefault();
-      $("#input-add").val("");
-      $('svg').remove();
-      $("h1 .label").fadeOut(200);
-      $("#add-form").fadeOut(200, function(){
-        $("#create-form").fadeIn(200);
-      });
-    });
-
   });
+
+  $(".reset-btree").click(function(e) {
+    e.preventDefault();
+    $("#input-add").val("");
+    $('svg').remove();
+    $("h1 .label").fadeOut(200);
+    $("#add-form").fadeOut(200, function(){
+      $("#create-form").fadeIn(200);
+    });
+  });
+
+
 
   $("#add-form").submit(function(event) {
     event.preventDefault();

@@ -16,17 +16,16 @@ body, html {
         font-size: 12px;
         position: relative;
         bottom: 16px;
-        font-weight: 400;
-        display: none; }
+        font-weight: 400; }
         #main #inputs h1 .label #order-display {
           font-weight: 600; }
-    #main #inputs #create-form input[type=text] {
-      width: 30px;
-      padding: 3px 7px;
-      text-align: right;
-      height: 30px; }
-    #main #inputs #add-form {
+    #main #inputs #create-form {
       display: none; }
+      #main #inputs #create-form input[type=text] {
+        width: 30px;
+        padding: 3px 7px;
+        text-align: right;
+        height: 30px; }
   #main .node circle {
     fill: #fff;
     stroke: steelblue;
