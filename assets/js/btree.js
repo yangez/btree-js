@@ -88,3 +88,7 @@ BTree.prototype.seed = function(count) {
   }
 
 }
+
+BTree.prototype.isEmpty = function() {
+  return !this.root;
+}

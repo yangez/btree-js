@@ -6,8 +6,11 @@ $(function() {
 
   bTree.seed(1);
 
-  var treeData = bTree.toJSON();
-  update(treeData);
+
+  if (!bTree.isEmpty()) {
+    var treeData = bTree.toJSON();
+    update(treeData);
+  }
 
   $("#add-form").submit(function(event) {
     event.preventDefault();
