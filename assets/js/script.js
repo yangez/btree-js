@@ -6,6 +6,9 @@ $(function() {
 
   bTree.seed(3);
 
+  var treeData = bTree.toJSON();
+  update(treeData);
+
   $("#add-form").submit(function(event) {
     event.preventDefault();
     value = parseInt( $("#input-add").val() );
@@ -23,7 +26,6 @@ $(function() {
         return parseInt(element);
       });
 
-      debugger;
       if ( keys_array.indexOf(value) != -1 ) {
         $(this).css({ fill: "#ff0000", "font-weight": "bold"} );
       }
@@ -33,9 +35,6 @@ $(function() {
   });
 
 
-  var treeData = bTree.toJSON();
-  update(treeData);
-
   function update(source) {
 
     var bodyRect = d3.select("body").node().getBoundingClientRect();
@@ -43,8 +42,6 @@ $(function() {
     var margin = {top: 40, right: 120, bottom: 20, left: 120},
     width = bodyRect.width - margin.right - margin.left,
     height = bodyRect.height - margin.top - margin.bottom;
-
-    var i = 0;
 
     var diagonal = d3.svg.diagonal()
       .projection(function(d) { return [d.x, d.y]; });
@@ -65,8 +62,9 @@ $(function() {
     nodes.forEach(function(d) { d.y = d.depth * 100; });
 
     // Declare the nodes…
+    var i = 0;
     var node = svg.selectAll("g.node")
-    .data(nodes, function(d) { return d.id || (d.id = ++i); });
+      .data(nodes, function(d) { return d.id || (d.id = ++i); });
 
     // Enter the nodes.
     var nodeEnter = node.enter().append("g")
