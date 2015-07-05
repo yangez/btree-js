@@ -6,6 +6,11 @@ var BTree = function(order){
   tree.current_leaf_offset = 0;
   tree.unattached_nodes = [[]]; // array for unattached nodes based on leaf_offset
 
+  if (tree.order < 3) {
+    alert("Order must 3 or above.");
+    return false;
+  }
+
   return tree;
 }
 
