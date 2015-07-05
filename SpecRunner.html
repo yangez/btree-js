@@ -10,9 +10,10 @@
 
     <!-- testing frameworks -->
     <link rel="stylesheet" href="lib/mocha/mocha.css">
-    <script src="lib/mocha/mocha.js"></script>
-    <script src="lib/chai/chai.js"></script>
-    <script src="lib/sinon/sinon.js"></script>
+    <script src="bower_components/mocha/mocha.js"></script>
+    <script src="bower_components/chai/chai.js"></script>
+    <script src="bower_components/sinon/sinon.js"></script>
+    <script src="bower_components/jasmine/sinon.js"></script>
     <script>
       mocha.setup('bdd');
       window.expect = chai.expect;
@@ -22,8 +23,8 @@
     </script>
 
     <!-- source files -->
-    <script src="script.js"></script>
-    <script src="btree.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/btree.js"></script>
 
     <!-- tests -->
     <script src="spec/btreeSpec.js"></script>

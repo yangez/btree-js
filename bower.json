@@ -1,0 +1,25 @@
+{
+  "name": "btree",
+  "version": "1.0.0",
+  "homepage": "https://github.com/yangez/btree-js",
+  "authors": [
+    "Eric Yang <eyang232@gmail.com>",
+    "Allen Chang <iafayte@gmail.com>"
+  ],
+  "description": "A client-side javascript implementation of a B-Tree.",
+  "main": "index.html",
+  "keywords": [
+    "btree",
+    "b-tree",
+    "b",
+    "tree"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
