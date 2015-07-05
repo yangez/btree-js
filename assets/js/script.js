@@ -1,10 +1,10 @@
 $(function() {
 
   // set up BTree
-  var order = 3;
+  var order = 2;
   bTree = BTree(order);
 
-  bTree.seed(3);
+  bTree.seed(1);
 
   var treeData = bTree.toJSON();
   update(treeData);
