@@ -4,16 +4,20 @@
     <title>Mocha Spec Runner</title>
 
     <!-- library files -->
-    <script src="lib/jquery-1.8.3.js"></script>
-    <script src="lib/underscore.js"></script>
-    <script src="lib/backbone.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/d3/d3.min.js"></script>
 
     <!-- testing frameworks -->
-    <link rel="stylesheet" href="lib/mocha/mocha.css">
+    <link rel="stylesheet" href="bower_components/mocha/mocha.css">
     <script src="bower_components/mocha/mocha.js"></script>
     <script src="bower_components/chai/chai.js"></script>
-    <script src="bower_components/sinon/sinon.js"></script>
-    <script src="bower_components/jasmine/sinon.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="bower_components/jasmine/lib/jasmine-core/jasmine.css">
+    <script type="text/javascript" src="bower_components/jasmine/lib/jasmine-core/jasmine.js"></script>
+    <script type="text/javascript" src="bower_components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+    <script type="text/javascript" src="bower_components/jasmine/lib/jasmine-core/boot.js"></script>
+
     <script>
       mocha.setup('bdd');
       window.expect = chai.expect;
@@ -25,6 +29,7 @@
     <!-- source files -->
     <script src="assets/js/script.js"></script>
     <script src="assets/js/btree.js"></script>
+    <script src="assets/js/btree-node.js"></script>
 
     <!-- tests -->
     <script src="spec/btreeSpec.js"></script>

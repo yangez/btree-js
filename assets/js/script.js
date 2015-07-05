@@ -4,7 +4,8 @@ $(function() {
   var order = 3;
   bTree = BTree(order);
 
-  // bTree.seed(14);
+  bTree.seed(1);
+
 
   if (!bTree.isEmpty()) {
     var treeData = bTree.toJSON();
