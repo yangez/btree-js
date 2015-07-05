@@ -4,10 +4,12 @@ $(function() {
   var order = 3;
   bTree = BTree(order);
 
-  bTree.seed(3);
+  // bTree.seed(14);
 
-  var treeData = bTree.toJSON();
-  update(treeData);
+  if (!bTree.isEmpty()) {
+    var treeData = bTree.toJSON();
+    update(treeData);
+  }
 
   $("#add-form").submit(function(event) {
     event.preventDefault();
