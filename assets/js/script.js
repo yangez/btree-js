@@ -1,7 +1,7 @@
 $(function() {
 
   // set up BTree
-  var order = 2;
+  var order = 3;
   bTree = BTree(order);
 
   bTree.seed(1);
