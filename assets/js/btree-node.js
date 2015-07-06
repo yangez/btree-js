@@ -29,8 +29,9 @@ BTreeNode.prototype.traverse = function(value, strict) {
 }
 
 BTreeNode.prototype.insert = function(value){
+
   var int = parseInt(value) || 0;
-  if (int <= 0) {
+  if ( int <= 0 || int > 1000000000000 ) {
     alert('Please enter a valid integer.');
     return false;
   }
