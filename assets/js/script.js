@@ -52,7 +52,7 @@ $(function() {
   $(".reset-btree").click(function(e) {
     e.preventDefault();
     $("#input-add").val("");
-    // $('svg').remove();
+    $('svg g').children().remove();
     $("#canvas").fadeOut(200);
     $("h1 .label").fadeOut(200);
     $("#add-form").fadeOut(200, function(){
