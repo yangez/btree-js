@@ -24,6 +24,7 @@ $(function() {
   var treeData = bTree.toJSON();
   update(treeData);
 
+  // create form event handler
   $("#create-form").submit(function(event) {
     event.preventDefault();
     var order = parseInt( $("#new-order").val() );
@@ -46,6 +47,7 @@ $(function() {
     });
   });
 
+  // reset tree event handler
   $(".reset-btree").click(function(e) {
     e.preventDefault();
     $("#input-add").val("");
@@ -57,6 +59,7 @@ $(function() {
     });
   });
 
+  // add integer event handler
   $("#add-form").submit(function(event) {
     event.preventDefault();
     var value = parseInt( $("#input-add").val() );
@@ -69,7 +72,6 @@ $(function() {
 
     // Make the current add node highlighted in red
     $("g text").each(function(index) {
-      // Highlight the node with the inserted value
       var bTreeNode = bTree.search(value);
       var d3NodeTouched = d3.selectAll('g.node').filter(function(d){
         return d.name === bTreeNode.keys.toString();
@@ -82,12 +84,25 @@ $(function() {
     });
   });
 
+  // Note event handler
+  $("#close-this").click(function(e) {
+    e.preventDefault();
+    $("#popup").css("bottom", -350);
+    $("#close-this").hide();
+    $("#what-is-this").show();
+  });
+  $("#what-is-this").click(function(e) {
+    e.preventDefault();
+    $("#popup").css("bottom", 0);
+    $("#close-this").show();
+    $("#what-is-this").hide();
+  });
+
+  // color paths down to newly added node
   function colorPath(node) {
-    // recursive coloring algorithm
-    if (node.isRoot())
-      return;
+    if (node.isRoot()) return;
     else {
-      // filter for links that have any sort of connnection
+      // filter for links that connect with this node
       d3.selectAll('.link').filter(function(d){
         return d.target.name === node.keys.toString();
       }).style('stroke','steelblue');
@@ -95,6 +110,7 @@ $(function() {
     }
   }
 
+  // update d3 visualization
   function update(source) {
     // Make source data into d3-usable format
     var nodes = tree.nodes(source);

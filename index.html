@@ -43,6 +43,28 @@
 
 <div id="canvas"></div>
 
+<a href="#" id="what-is-this" class="note">What is this?</a>
+<a href="#" id="close-this" class="note">Close</a>
+
+<div id="popup">
+  <p>A <strong>B-tree</strong> is a data structure that consists of ordered nodes arranged in a balanced tree. Each node contains <em>keys</em> (the numbers that you see) and <em>children</em> (the nodes directly below it).</p>
+
+  <p>Nodes are sorted to the left, middle, or right depending on whether their keys are less than, in between, or greater than the parent's keys. Add some values to the demo for a visual demonstration of this.</p>
+
+  <p>The <em>root</em> is the top node, <em>internal</em> nodes are in the middle, and <em>leaf</em> nodes are on the bottom. Using this terminology, a valid B-tree of order <em>m</em> obeys the following rules:</p>
+
+  <ul>
+    <li>Every node has at most <em>m</em> children.</li>
+    <li>Every internal node has at least <em>ciel( m / 2 )</em> children.</li>
+    <li>The root node has at least 2 children if it's not a leaf.</li>
+    <li>A non-leaf node with <em>k</em> children contains <em>k-1</em> keys.</li>
+    <li>All leaves are on the same level.</li>
+  </ul>
+
+  <p>B-trees allow you to quickly search for values, and they're often used in databases and file systems.</p>
+
+</div>
+
 </body>
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>

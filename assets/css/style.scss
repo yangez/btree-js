@@ -39,10 +39,6 @@ body, html {
       }
     }
 
-    #add-form {
-      // display: none;
-    }
-
   }
 
   .node {
@@ -61,3 +57,31 @@ body, html {
     stroke-width: 2px;
   }
 }
+
+#popup {
+  width: 400px; height: 350px;
+  display: block; position: fixed;
+  bottom: -350px;
+  right: 0;
+  font-size: 12px;
+  line-height: 1.3em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  transition: 0.2s bottom;
+  p { margin: 15px 20px; }
+}
+
+.note {
+  display: block;
+  position: fixed;
+  bottom: 2px; right: 6px;
+  text-align: right;
+  font-size: 12px;
+  transition: 0.2s color;
+  z-index: 3;
+  &:hover {
+    text-decoration: none;
+  }
+}
+#close-this { display: none; }
