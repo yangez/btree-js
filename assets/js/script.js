@@ -1,5 +1,4 @@
 $(function() {
-
   // get tree size
   var bodyRect = d3.select("body").node().getBoundingClientRect();
   var margin = {top: 40, right: 120, bottom: 20, left: 120},
@@ -15,7 +14,6 @@ $(function() {
       height: height + margin.top + margin.bottom })
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
 
   var bTree, treeData;
 
@@ -46,7 +44,6 @@ $(function() {
         }
       });
     });
-
   });
 
   $(".reset-btree").click(function(e) {
@@ -60,8 +57,6 @@ $(function() {
     });
   });
 
-
-
   $("#add-form").submit(function(event) {
     event.preventDefault();
     var value = parseInt( $("#input-add").val() );
@@ -74,28 +69,31 @@ $(function() {
 
     // Make the current add node highlighted in red
     $("g text").each(function(index) {
+      // Highlight the node with the inserted value
       var bTreeNode = bTree.search(value);
       var d3NodeTouched = d3.selectAll('g.node').filter(function(d){
         return d.name === bTreeNode.keys.toString();
       });
-      d3.selectAll('g.node').select('circle').style('stroke','steelblue');
-      d3NodeTouched.select('circle').style('stroke','red');
-      // console.log(d3NodeTouched);
-      // d3.select(d3NodeTouched[0]).select('circle').style('fill', 'red');
+      d3.selectAll('g.node').select('circle').style({stroke : 'steelblue', fill: '#ffffff'});
+      d3.selectAll('.link').style('stroke','#ccc');
 
-
-      // keys = $(this).text();
-      // keys_array = keys.split(',').map(function(element) {
-      //   return parseInt(element);
-      // });
-
-      // if ( keys_array.indexOf(value) != -1 ) {
-      //   $(this).css({ fill: "#ff0000", "font-weight": "bold"} );
-      // }
+      d3NodeTouched.select('circle').style({stroke : '#ff0000', fill: '#ffcccc'});
+      colorPath(bTreeNode);
     });
-
   });
 
+  function colorPath(node) {
+    // recursive coloring algorithm
+    if (node.isRoot())
+      return;
+    else {
+      // filter for links that have any sort of connnection
+      d3.selectAll('.link').filter(function(d){
+        return d.target.name === node.keys.toString();
+      }).style('stroke','steelblue');
+      return colorPath(node.parent);
+    }
+  }
 
   function update(source) {
     // Make source data into d3-usable format
@@ -109,7 +107,6 @@ $(function() {
     var i = 0;
     var node = svg.selectAll("g.node")
       .data(nodes, function(d) { return d.id || (d.id = ++i); });
-
 
     // NODE D3 APPENDING
     var nodeEnter = node.enter().append("g")
@@ -139,15 +136,10 @@ $(function() {
       d3.select('#'+this.id).transition().attr('transform', 'translate(' + d.x + ',' + d.y + ')')
 
       thisNode.attr("y", d.children || d._children ? -18 : 18);
-
-
-      // debugger;
     });
-
     // D3 LINKS
     var link = svg.selectAll("path.link")
       .data(links, function(d) { return d.target.id; });
-
 
     var diagonal = d3.svg.diagonal()
       .projection(function(d) { return [d.x, d.y]; });
@@ -155,17 +147,11 @@ $(function() {
       .attr("class", "link")
       .attr("d", diagonal);
 
-
     link.each(function(d,i) {
       var thisLink = d3.select(svg.selectAll("path.link")[0][i]);
       diagonal = d3.svg.diagonal()
         .projection(function(d) { return [d.x, d.y]; });
       thisLink.transition().attr("d", diagonal);
     });
-
-    // link.exit().
-
-
   }
-
 });
