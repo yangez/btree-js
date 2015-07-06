@@ -45,6 +45,9 @@ $(function() {
         }
       });
     });
+
+    ga('send', 'generated tree');
+
   });
 
   // reset tree event handler
@@ -57,6 +60,9 @@ $(function() {
     $("#add-form").fadeOut(200, function(){
       $("#create-form").fadeIn(200);
     });
+
+    ga('send', 'reset tree');
+
   });
 
   // add integer event handler
@@ -87,6 +93,9 @@ $(function() {
       // color bottom node
       d3NodeTouched.select('circle').style({stroke : '#ff0000', fill: '#ffcccc'});
     });
+
+    ga('send', 'added value');
+
   });
 
   // Note event handler
@@ -101,6 +110,7 @@ $(function() {
     $("#popup").css("bottom", 0);
     $("#close-this").show();
     $("#what-is-this").hide();
+    ga('send', 'opened info');
   });
 
   // color paths down to newly added node
