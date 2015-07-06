@@ -12,7 +12,7 @@ describe("BTree Definition", function() {
   });
 
   it('the root has at least 2 children if it is not a leaf node', function(){
-    // test order 3-30
+    // test order 3-10
 
     // Root must have 2 children if it's not a leaf. if the breadth is > 1 level then must have >=2 children
   });
