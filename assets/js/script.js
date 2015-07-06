@@ -76,11 +76,16 @@ $(function() {
       var d3NodeTouched = d3.selectAll('g.node').filter(function(d){
         return d.name === bTreeNode.keys.toString();
       });
-      d3.selectAll('g.node').select('circle').style({stroke : 'steelblue', fill: '#ffffff'});
+
+      // reset all links and nodes
+      d3.selectAll('g.node').select('circle').style({stroke : '#ccc', fill: '#ffffff'});
       d3.selectAll('.link').style('stroke','#ccc');
 
-      d3NodeTouched.select('circle').style({stroke : '#ff0000', fill: '#ffcccc'});
+      // color links and all intermediate nodes
       colorPath(bTreeNode);
+
+      // color bottom node
+      d3NodeTouched.select('circle').style({stroke : '#ff0000', fill: '#ffcccc'});
     });
   });
 
@@ -100,6 +105,11 @@ $(function() {
 
   // color paths down to newly added node
   function colorPath(node) {
+    // color the node itself
+    d3.selectAll('g.node').filter(function(d){
+      return d.name === node.keys.toString();
+    }).select('circle').style('stroke','steelblue');
+
     if (node.isRoot()) return;
     else {
       // filter for links that connect with this node
