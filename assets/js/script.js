@@ -46,7 +46,7 @@ $(function() {
       });
     });
 
-    ga('send', 'generated tree');
+    ga('send', 'event', 'tree', 'generated');
 
   });
 
@@ -61,7 +61,7 @@ $(function() {
       $("#create-form").fadeIn(200);
     });
 
-    ga('send', 'reset tree');
+    ga('send', 'event', 'tree', 'reset');
 
   });
 
@@ -94,7 +94,7 @@ $(function() {
       d3NodeTouched.select('circle').style({stroke : '#ff0000', fill: '#ffcccc'});
     });
 
-    ga('send', 'added value');
+    ga('send', 'event', 'tree', 'inserted value');
 
   });
 
