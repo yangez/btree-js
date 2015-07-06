@@ -110,7 +110,7 @@ $(function() {
     $("#popup").css("bottom", 0);
     $("#close-this").show();
     $("#what-is-this").hide();
-    ga('send', 'opened info');
+    ga('send', 'event', 'info', 'viewed');
   });
 
   // color paths down to newly added node
