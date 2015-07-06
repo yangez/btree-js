@@ -63,7 +63,7 @@ $(function() {
   $("#add-form").submit(function(event) {
     event.preventDefault();
     var value = parseInt( $("#input-add").val() );
-    bTree.insert(value);
+    bTree.insert(value, true); // silently insert
 
     $("#input-add").val("");
 
