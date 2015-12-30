@@ -1,9 +1,9 @@
 # btree-js
-Here is [Allen Chang](https://allendevelops.wordpress.com) and Eric Yang's javascript implementation for [B-tree](https://en.wikipedia.org/wiki/B-tree) of order 3 and above.
+Demo: **[JS BTree](http://yangez.github.io/btree-js/)**
 
-Demo here: [JS BTree](http://yangez.github.io/btree-js/)
+This is [Allen Chang](https://allendevelops.wordpress.com) and [Eric Yang](http://www.eric-y.com)'s javascript implementation for [B-tree](https://en.wikipedia.org/wiki/B-tree) of order 3 and above.
 
-Currently we can `search` and `insert`. We're planning on adding `delete` soon. We derived our own insert algorithm as follows:
+Currently we can `search` and `insert`. We derived our own insert algorithm as follows:
 
 1. Traverse the b-tree for the correct leaf to insert the value.
 2. Insert value into leaf.
