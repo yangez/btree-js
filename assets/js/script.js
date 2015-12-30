@@ -113,6 +113,9 @@ $(function() {
     ga('send', 'event', 'info', 'viewed');
   });
 
+  // open up info section upon page load
+  $("#what-is-this").click();
+
   // color paths down to newly added node
   function colorPath(node) {
     // color the node itself
