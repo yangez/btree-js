@@ -1,7 +1,7 @@
 # btree-js
 Demo: **[JS BTree](http://yangez.github.io/btree-js/)**
 
-This is [Allen Chang](https://allendevelops.wordpress.com) and [Eric Yang](http://www.eric-y.com)'s javascript implementation for [B-tree](https://en.wikipedia.org/wiki/B-tree) of order 3 and above.
+This is Allen Chang and [Eric Yang](http://www.eric-y.com)'s javascript implementation for [B-tree](https://en.wikipedia.org/wiki/B-tree) of order 3 and above.
 
 Currently we can `search` and `insert`. We derived our own insert algorithm as follows:
 
