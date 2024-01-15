@@ -97,3 +97,13 @@ BTree.prototype.seed = function(count) {
 BTree.prototype.isEmpty = function() {
   return !this.root;
 }
+
+// Delete function
+BTree.prototype.delete = function(value) {
+  var target = this.search(value, true);
+  if (!target) {
+    alert("The value " + value + " does not exist!");
+    return false;
+  }
+  target.delete(value);
+};

@@ -65,6 +65,13 @@ $(function() {
 
   });
 
+  $(".delete-btree").click(function (e) {
+    var value = parseInt($("#input-add").val());
+    bTree.delete(value); // delete
+    treeData = bTree.toJSON();
+    update(treeData);
+  });
+
   // add integer event handler
   $("#add-form").submit(function(event) {
     event.preventDefault();
