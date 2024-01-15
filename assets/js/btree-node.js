@@ -174,3 +174,68 @@ BTreeNode.prototype.toJSON = function() {
     }
     return json;
 }
+
+BTreeNode.prototype.delete = function(value) {
+  var int = parseInt(value);
+  if (typeof value !== "number" || int > 1000000000000) {
+    alert("Please enter a valid integer.");
+    return false;
+  }
+  var index = this.keys.indexOf(value);
+  if (this.isLeaf()) {
+    //  delete direct
+    this.keys.splice(index, 1);
+  } else {
+    // find a replace node from children
+    var p = this.children[index]; // current index far right
+    while (p.children[p.children.length - 1]?.keys?.length > 0) {
+      p = p.children[p.children.length - 1];
+    }
+    if (p.keys.length) {
+      // update children node if self is not leaf
+      if (!p.isLeaf()) {
+        p.children[p.children.length - 1].parent = null;
+        p.children.pop();
+      }
+      this.keys[index] = p.keys.pop();
+      // self is empty and only one child
+      if (p.keys == 0 && p.children[0]) {
+        p.children[0].parent = p.parent;
+        p.parent.children.forEach(function (child, index) {
+          if (child === p) p.parent.children[index] = p.children[0];
+        });
+        p.parent = null;
+      }
+    } else {
+      // current index + 1 far right
+      p = this.children[index + 1];
+      while (p.children[0]?.keys?.length > 0) {
+        p = p.children[0];
+      }
+      if (p.keys.length) {
+        if (!p.isLeaf()) {
+          p.children[0].parent = null;
+          p.children.shift();
+        }
+        this.keys[index] = p.keys.shift();
+        if (p.keys == 0 && p.children[0]) {
+          p.children[0].parent = p.parent;
+          p.parent.children.forEach(function (child, index) {
+            if (child === p) p.parent.children[index] = p.children[0];
+          });
+          p.parent = null;
+        }
+      } else {
+        // left and right children is empty: remove children at current index
+        if (this.keys.length == 1) { // if self only one element then remove both
+          this.children[index + 1].parent = null;
+          this.children.splice(index + 1, 1);
+        }
+        this.children[index].parent = null;
+        this.children.splice(index, 1);
+        this.keys.splice(index, 1);
+      }
+    }
+  }
+};
+
