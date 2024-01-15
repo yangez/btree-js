@@ -192,7 +192,7 @@ BTreeNode.prototype.delete = function(value) {
       p = p.children[p.children.length - 1];
     }
     if (p.keys.length) {
-      // update
+      // update children node if self is not leaf
       if (!p.isLeaf()) {
         p.children[p.children.length - 1].parent = null;
         p.children.pop();
@@ -226,8 +226,8 @@ BTreeNode.prototype.delete = function(value) {
           p.parent = null;
         }
       } else {
-        // left and right children is empty: remove children curr index
-        if (this.keys.length == 1) {
+        // left and right children is empty: remove children at current index
+        if (this.keys.length == 1) { // if self only one element then remove both
           this.children[index + 1].parent = null;
           this.children.splice(index + 1, 1);
         }
